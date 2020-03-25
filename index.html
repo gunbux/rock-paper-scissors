@@ -28,7 +28,77 @@
         function playRound(playerSelection, computerSelection){
             //Plays a single round of Rock, Paper, Scissors
             
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            if (playerSelection == computerSelection){
+                console.log('Its a draw!')
+                return 'Draw!'
+            }
+
+            else{
+                if (playerSelection == 'rock' && computerSelection == 'scissors'){
+                    console.log('Player uses rock and computer uses scissors!')
+                    return 'Win!'
+                }
+
+                else if (playerSelection == 'rock' && computerSelection == 'paper'){
+                    console.log('Player uses rock and computer uses paper!')
+                    return 'Lose!'
+                }
+
+                else if (playerSelection == 'paper' && computerSelection == 'rock'){
+                    console.log('Player uses paper and computer uses rock!')
+                    return 'Win!'
+                }
+
+                else if (playerSelection == 'paper' && computerSelection == 'scissors'){
+                    console.log('Player uses paper and computer uses scissors!')
+                    return 'Lose!'
+                }
+
+                else if (playerSelection == 'scissors' && computerSelection == 'paper'){
+                    console.log('Player uses scissors and computer uses paper!')
+                    return 'Win!'
+                }
+                else if (playerSelection == 'scissors' && computerSelection == 'rock'){
+                    console.log('Player uses scissors and computer uses rock!')
+                    return 'Lose!'
+                }
+                
+            }
         }
+
+        //console.log(`Playing simulation of game: ${playRound('Scissors','Rock')}`)
+        //console.log(`Playing simulation of game: ${playRound('Rock','Rock')}`)
+        //Working as intended
+
+        function game(){
+            //Plays 5 rounds of RPS, and keeps scores.
+            
+            let playerScore = 0
+            let computerScore = 0
+            for (i=0; i<5; i++){
+
+                let playerSelect = prompt('Please play either rock, paper or scissors!')
+                let computerSelect = computerPlay()
+                let results = playRound(playerSelect,computerSelect)
+                if (results == 'Win!'){
+                    console.log('Player Wins!')
+                    playerScore++
+                }
+                else if(results == 'Lose!'){
+                    console.log('Computer Wins!')
+                    computerScore++
+                }
+            }
+
+            console.log(`Final Score: ${playerScore} - ${computerScore}`)
+
+            return 'Game complete!'
+        }
+
+        console.log(game())
     </script>
 </body>
 </html>
