@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Rock Paper Scissors</title>
+</head>
+<body>
+    <button id = 'rock'>Rock</button>
+    <button id = 'paper'>Paper</button>
+    <button id = 'scissors'>Scissors</button>
+
+    <script>
+        function computerPlay(){
+            // Randomly returns either Rock, Paper or Scissors
+
+            const randInt = Math.floor(Math.random() * 3)
+
+            switch(randInt){
+                case 0:
+                    return 'Rock';
+
+                case 1: 
+                    return 'Paper';
+
+                case 2: 
+                    return 'Scissors';
+            }
+        }
+
+        //console.log(`Computer plays a move and gets ${computerPlay()}`) - Working as intended
+
+        function playRound(playerSelection, computerSelection){
+            //Plays a single round of Rock, Paper, Scissors
+            
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            if (playerSelection == computerSelection){
+                console.log('Its a draw!')
+                return 'Draw!'
+            }
+
+            else{
+                if (playerSelection == 'rock' && computerSelection == 'scissors'){
+                    console.log('Player uses rock and computer uses scissors!')
+                    return 'Win!'
+                }
+
+                else if (playerSelection == 'rock' && computerSelection == 'paper'){
+                    console.log('Player uses rock and computer uses paper!')
+                    return 'Lose!'
+                }
+
+                else if (playerSelection == 'paper' && computerSelection == 'rock'){
+                    console.log('Player uses paper and computer uses rock!')
+                    return 'Win!'
+                }
+
+                else if (playerSelection == 'paper' && computerSelection == 'scissors'){
+                    console.log('Player uses paper and computer uses scissors!')
+                    return 'Lose!'
+                }
+
+                else if (playerSelection == 'scissors' && computerSelection == 'paper'){
+                    console.log('Player uses scissors and computer uses paper!')
+                    return 'Win!'
+                }
+                else if (playerSelection == 'scissors' && computerSelection == 'rock'){
+                    console.log('Player uses scissors and computer uses rock!')
+                    return 'Lose!'
+                }
+                
+            }
+        }
+
+        //console.log(`Playing simulation of game: ${playRound('Scissors','Rock')}`)
+        //console.log(`Playing simulation of game: ${playRound('Rock','Rock')}`)
+        //Working as intended
+
+        function game(playerSelect){
+            //Plays 1 round of RPS, and keeps scores.
+            
+            //let playerScore = 0
+            //let computerScore = 0
+            //for (i=0; i<5; i++){
+
+                //let playerSelect = prompt('Please play either rock, paper or scissors!')
+                //let computerSelect = computerPlay()
+                //let results = playRound(playerSelect,computerSelect)
+                //if (results == 'Win!'){
+                    //console.log('Player Wins!')
+                    //playerScore++
+                //}
+                //else if(results == 'Lose!'){
+                    //console.log('Computer Wins!')
+                    //computerScore++
+                //}
+            let computerSelect = computerPlay();
+            let result = playRound(playerSelect,computerSelect);
+            if (result == 'Win!'){
+                console.log('Player Wins!')
+                alert('You\'ve Won!')
+                
+            }
+            else if(result == 'Lose!'){
+                console.log('Computer Wins!')
+                alert('You\'ve Lost!')
+            }
+        
+
+            return 'Game complete!'
+        }
+        
+        const btns = document.querySelectorAll('button')
+        btns.forEach((button) =>{
+            button.addEventListener('click', (e) =>{
+                console.log(button)
+                console.log(e.id)
+                game(button.id);
+            });
+        });
+
+        
+    </script>
+</body>
+</html>
