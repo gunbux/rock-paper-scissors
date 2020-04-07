@@ -3,12 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>HTML Rock Paper Scissors</title>
-</head>
-<body>
-    <button id = 'rock'>Rock</button>
-    <button id = 'paper'>Paper</button>
-    <button id = 'scissors'>Scissors</button>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0px;
+        }
 
+        #main-container {
+            display: flex;
+            height: 100%;
+            border: solid;
+            flex-direction: row;
+            justify-content: center
+        }
+
+        #btn-container {
+            display: flex;
+        }
+
+        #container {
+            display:flex;
+            height: 20%;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #playerScore {
+            background-color: blue;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #computerScore {
+            background-color: red;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #game{
+            display: flex;
+            height: 90%;
+            width: 30%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id=main-container>
+        <div id="playerScore">
+            <h1>Player</h1>
+        </div>
+        <div id="game">
+            <div id="container"></div>
+            <div id="btn-container">
+            <button id = 'rock'>Rock</button>
+            <button id = 'paper'>Paper</button>
+            <button id = 'scissors'>Scissors</button>
+            </div>
+        </div>
+        <div id="computerScore">
+            <h1>Computer</h1>
+        </div>
+   </div>
+
+    </div>
     <script>
         function computerPlay(){
             // Randomly returns either Rock, Paper or Scissors
@@ -31,7 +97,7 @@
 
         function playRound(playerSelection, computerSelection){
             //Plays a single round of Rock, Paper, Scissors
-            
+
             playerSelection = playerSelection.toLowerCase();
             computerSelection = computerSelection.toLowerCase();
 
@@ -73,9 +139,17 @@
             }
         }
 
-        //console.log(`Playing simulation of game: ${playRound('Scissors','Rock')}`)
+        //console.log(`Playing simulation of game: ${p<layRound('Scissors','Rock')}`)
         //console.log(`Playing simulation of game: ${playRound('Rock','Rock')}`)
         //Working as intended
+        
+        function printer(result){
+
+            const div = document.createElement('div');
+            div.textContent = result
+            container.appendChild(div)
+            return
+        }
 
         function game(playerSelect){
             //Plays 1 round of RPS, and keeps scores.
@@ -99,24 +173,54 @@
             let result = playRound(playerSelect,computerSelect);
             if (result == 'Win!'){
                 console.log('Player Wins!')
-                alert('You\'ve Won!')
-                
+                printer('Player Wins!')
+                scorePlayer += 1;
             }
             else if(result == 'Lose!'){
                 console.log('Computer Wins!')
-                alert('You\'ve Lost!')
+                printer('Computer Wins!')
+                scoreComputer += 1;
+            }
+
+            else if(result == 'Draw!'){
+                console.log('It\'s a draw!')
+                printer('Draw!')
             }
         
 
             return 'Game complete!'
         }
         
+        function updateScore(player,computer){
+            const playerS = document.querySelector('#playerScore')
+            const computerS = document.querySelector('#computerScore')
+            
+            //console.log(`Selected: ${playerS} and ${computerS}`)
+
+            playerS.innerHTML = `<h1>${player}</h1>`
+            computerS.innerHTML = `<h1>${computer}</h1>`
+
+            if (playCount == 5){
+                const container = document.querySelector('#container');
+                container.innerHTML = '<h1>Game Over</h1>'
+                const game = document.querySelector('#game')
+                game.removeChild(document.querySelector('#btn-container'))
+            }
+        }
+
         const btns = document.querySelectorAll('button')
+        let playCount = 0;
+        let scorePlayer = 0;
+        let scoreComputer = 0;
         btns.forEach((button) =>{
             button.addEventListener('click', (e) =>{
                 console.log(button)
                 console.log(e.id)
                 game(button.id);
+                playCount += 1;
+                updateScore(scorePlayer,scoreComputer)
+                //console.log(`playCount is currently ${playCount}`)
+                console.log(`Scores are currently ${scorePlayer} and ${scoreComputer}`)
             });
         });
 
